@@ -1,0 +1,13 @@
+Creating .Net Core project manually by command line:
+=> dotnet new sln
+-- create solution file, important to have for any C# project
+=> dotnet new webapi -o API
+-- create a .Net Core Web API project, to be contained in the "API" folder
+=> dotnet sln add API
+-- add the "API" project in the solution
+
+Adding self-signed certificate for when running on localhost:
+=> dotnet dev-certs https --trust
+
+Run server:
+=> dotnet run
