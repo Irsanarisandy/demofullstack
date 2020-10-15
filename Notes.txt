@@ -11,3 +11,17 @@ Adding self-signed certificate for when running on localhost:
 
 Run server:
 => dotnet run
+
+Create database from .Net Core project:
+- using NuGet, install Microsoft.EntityFrameworkCore (can be specific to database, e.g. sqlite)
+- using terminal, install Entity Framework Core Tools
+-- go to NuGet website and search for dotnet-ef to copy and paste the command
+-- make sure that the version is related to the installed .Net Core SDK being used
+=> dotnet-ef migrations add InitialCreate -o Data/Migrations
+-- create the database migration "InitialCreate" from current entities in "Data/Migrations" folder
+-- this has to be in "Migrations" folder, which can be placed anywhere
+=> dotnet-ef database update
+-- create the database from the structure given by the database migration
+
+Generate .gitignore file for .Net Core project:
+=> dotnet new gitignore
