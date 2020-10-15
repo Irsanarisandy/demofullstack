@@ -25,3 +25,8 @@ Create database from .Net Core project:
 
 Generate .gitignore file for .Net Core project:
 => dotnet new gitignore
+
+Angular lifecycle hooks:
+- OnInit
+-- executes after constructor, which is after the class and its property variables from dependency injection have been instantiated
+-- recommended to use here for all other initialization/declaration or using property variables from dependency injection
