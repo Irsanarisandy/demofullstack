@@ -10,9 +10,9 @@ Adding self-signed certificate for when running on localhost:
 => dotnet dev-certs https --trust
 
 Run server:
-=> dotnet run
+=> dotnet watch run
 
-Create database from .Net Core project:
+Accessing database from .Net Core project:
 - using NuGet, install Microsoft.EntityFrameworkCore (can be specific to database, e.g. sqlite)
 - using terminal, install Entity Framework Core Tools
 -- go to NuGet website and search for dotnet-ef to copy and paste the command
@@ -22,6 +22,8 @@ Create database from .Net Core project:
 -- this has to be in "Migrations" folder, which can be placed anywhere
 => dotnet-ef database update
 -- create the database from the structure given by the database migration
+=> dotnet-ef database drop
+-- delete the database
 
 Generate .gitignore file for .Net Core project:
 => dotnet new gitignore
