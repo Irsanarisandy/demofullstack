@@ -1,5 +1,9 @@
-<ul>
-  <li *ngFor="let user of users">
-    <span>{{ user.id }} - {{ user.username }}</span>
-  </li>
-</ul>
+<div *ngIf="!registerMode" fxLayout="column" fxLayoutAlign="start center">
+  <h1>Find your match</h1>
+  <p>Come on in to find your matches...all you need is to sign up!</p>
+  <div fxLayout="row" fxLayoutGap="10px">
+    <button mat-flat-button color="primary" (click)="setRegister(true)">Register</button>
+    <button mat-flat-button color="accent">Learn More</button>
+  </div>
+</div>
+<app-register *ngIf="registerMode" (closeRegister)="setRegister($event)"></app-register>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { NavMenuItems } from '../_domain/nav-menu';
+import { User } from '../_domain/user';
+import { AccountService } from '../_services/account.service';
 
 @Component({
   selector: 'app-layout',
@@ -10,7 +12,14 @@ import { NavMenuItems } from '../_domain/nav-menu';
 export class LayoutComponent implements OnInit {
   public navMenuItems = NavMenuItems;
 
-  constructor() {}
+  constructor(public accountService: AccountService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.setCurrentUser();
+  }
+
+  setCurrentUser(): void {
+    const user: User = JSON.parse(localStorage.getItem('user'));
+    this.accountService.setCurrentUser(user);
+  }
 }

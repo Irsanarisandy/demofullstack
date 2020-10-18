@@ -6,7 +6,7 @@
     <a routerLink="/" class="nav__brand">
       <h1>My App</h1>
     </a>
-    <div *ngIf="!userSession.isMobile" fxLayout="row" fxLayoutGap="15px">
+    <div *ngIf="!userSession.isMobile && (accountService.currentUser$ | async)" fxLayout="row" fxLayoutGap="15px">
       <a
         *ngFor="let menu of navMenuItems"
         class="nav__page-route"
@@ -22,19 +22,21 @@
   </div>
   <span fxFlex></span>
   <form
+    *ngIf="!(accountService.currentUser$ | async)"
     #navLoginForm="ngForm"
     fxLayout="row"
     fxLayoutAlign="start center"
     fxLayoutGap="15px"
+    (ngSubmit)="login()"
     autocomplete="off"
   >
     <mat-form-field appearance="outline" class="nav__login-form">
       <mat-label>Username</mat-label>
-      <input matInput name="username" />
+      <input matInput name="username" [(ngModel)]="model.username" />
     </mat-form-field>
     <mat-form-field appearance="outline" class="nav__login-form">
       <mat-label>Password</mat-label>
-      <input matInput name="password" type="password" />
+      <input matInput name="password" [(ngModel)]="model.password" type="password" />
     </mat-form-field>
     <button mat-flat-button class="nav__login-btn" type="submit">
       <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
@@ -43,4 +45,14 @@
       </div>
     </button>
   </form>
+  <button *ngIf="accountService.currentUser$ | async" mat-flat-button [matMenuTriggerFor]="navMenu">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+      <span>Welcome, {{ model.username.charAt(0).toUpperCase() + model.username.slice(1) }}</span>
+      <mat-icon>arrow_drop_down</mat-icon>
+    </div>
+  </button>
+  <mat-menu #navMenu="matMenu">
+    <button mat-menu-item>Edit Profile</button>
+    <button mat-menu-item (click)="logout()">Logout</button>
+  </mat-menu>
 </mat-toolbar>
