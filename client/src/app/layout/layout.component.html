@@ -1,0 +1,22 @@
+<mat-sidenav-container [style.height.%]="100" [style.background-color]="'transparent'">
+  <mat-sidenav #mainSideNav fxLayout="column" class="sidenav" [style.width.px]="200" [style.padding.px]="20">
+    <a routerLink="/" class="sidenav__brand">
+      <h1>My App</h1>
+    </a>
+    <a
+      *ngFor="let menu of navMenuItems"
+      class="sidenav__page-route"
+      [routerLink]="menu.routerLink"
+      routerLinkActive="sidenav__page-route--active"
+    >
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+        <mat-icon>{{ menu.icon }}</mat-icon>
+        <span>{{ menu.name }}</span>
+      </div>
+    </a>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-nav [sideNav]="mainSideNav"></app-nav>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

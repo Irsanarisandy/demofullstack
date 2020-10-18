@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
 
 import { SharedMaterialModule } from './shared-material.module';
 
@@ -13,6 +14,7 @@ const allModules = [
   BrowserModule,
   BrowserAnimationsModule,
   FlexLayoutModule,
+  FormsModule,
   SharedMaterialModule
 ];
 

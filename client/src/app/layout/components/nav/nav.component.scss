@@ -1,0 +1,44 @@
+.nav {
+  background-color: black;
+  color: white;
+
+  &__brand {
+    color: white;
+    text-decoration: none;
+  }
+
+  &__page-route {
+    color: white;
+    text-decoration: none;
+
+    &:hover, &--active {
+      color: gray;
+    }
+
+    .mat-icon {
+      font-size: 20px;
+      height: 20px;
+      width: 20px;
+    }
+
+    span {
+      font-size: 16px;
+    }
+  }
+
+  &__login-form {
+    font-size: 14px;
+
+    .mat-form-field-wrapper {
+      padding: 0;
+
+      .mat-form-field-outline {
+        color: white;
+      }
+    }
+  }
+
+  .nav__login-btn {
+    padding: 6px 15px;
+  }
+}

@@ -1,0 +1,46 @@
+<mat-toolbar fxLayout="row" fxLayoutAlign="start center" class="nav">
+  <button *ngIf="userSession.isMobile" mat-icon-button (click)="sideNav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+    <a routerLink="/" class="nav__brand">
+      <h1>My App</h1>
+    </a>
+    <div *ngIf="!userSession.isMobile" fxLayout="row" fxLayoutGap="15px">
+      <a
+        *ngFor="let menu of navMenuItems"
+        class="nav__page-route"
+        [routerLink]="menu.routerLink"
+        routerLinkActive="nav__page-route--active"
+      >
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+          <mat-icon>{{ menu.icon }}</mat-icon>
+          <span>{{ menu.name }}</span>
+        </div>
+      </a>
+    </div>
+  </div>
+  <span fxFlex></span>
+  <form
+    #navLoginForm="ngForm"
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    fxLayoutGap="15px"
+    autocomplete="off"
+  >
+    <mat-form-field appearance="outline" class="nav__login-form">
+      <mat-label>Username</mat-label>
+      <input matInput name="username" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="nav__login-form">
+      <mat-label>Password</mat-label>
+      <input matInput name="password" type="password" />
+    </mat-form-field>
+    <button mat-flat-button class="nav__login-btn" type="submit">
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+        <mat-icon>login</mat-icon>
+        <span>Login</span>
+      </div>
+    </button>
+  </form>
+</mat-toolbar>

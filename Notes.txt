@@ -35,3 +35,17 @@ Angular lifecycle hooks:
 
 Angular client folder structuring:
 - any common modules and components should be inside shared module
+
+Generate Angular files (make sure to change directory beforehand):
+=> ng g c nav --skip-tests
+-- generate component "nav", excluding the test file
+
+Overriding styling of built-in or 3rd party components (e.g. Angular Material):
+- directly apply styles on the html
+- if using class, can set encapsulation to ViewEncapsulation.None
+-- not recommended as the styles for that component will affect other components if not careful
+-- when used, make sure to only do it on a specific part of the component to avoid affecting other components
+
+Folder structure:
+- layout: components on the page level and routing
+- shared: all components and modules that can be used anywhere
