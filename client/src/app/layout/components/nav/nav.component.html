@@ -6,7 +6,7 @@
     <a routerLink="/" class="nav__brand">
       <h1>My App</h1>
     </a>
-    <div *ngIf="!userSession.isMobile && (accountService.currentUser$ | async)" fxLayout="row" fxLayoutGap="15px">
+    <ng-container *ngIf="!userSession.isMobile && (accountService.currentUser$ | async)">
       <a
         *ngFor="let menu of navMenuItems"
         class="nav__page-route"
@@ -18,7 +18,7 @@
           <span>{{ menu.name }}</span>
         </div>
       </a>
-    </div>
+    </ng-container>
   </div>
   <span fxFlex></span>
   <form
@@ -45,9 +45,9 @@
       </div>
     </button>
   </form>
-  <button *ngIf="accountService.currentUser$ | async" mat-flat-button [matMenuTriggerFor]="navMenu">
+  <button *ngIf="(accountService.currentUser$ | async) as user" mat-flat-button [matMenuTriggerFor]="navMenu">
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-      <span>Welcome, {{ model.username.charAt(0).toUpperCase() + model.username.slice(1) }}</span>
+      <span>Welcome, {{ user.username | titlecase }}</span>
       <mat-icon>arrow_drop_down</mat-icon>
     </div>
   </button>

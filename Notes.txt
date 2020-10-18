@@ -46,6 +46,9 @@ Overriding styling of built-in or 3rd party components (e.g. Angular Material):
 -- not recommended as the styles for that component will affect other components if not careful
 -- when used, make sure to only do it on a specific part of the component to avoid affecting other components
 
-Folder structure:
+Angular folder structure:
 - layout: components on the page level and routing
 - shared: all components and modules that can be used anywhere
+
+Angular Auth Guard:
+- used for preventing unauthorized users from going to specific pages that requires login credentials

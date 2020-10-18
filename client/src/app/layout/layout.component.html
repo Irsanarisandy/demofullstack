@@ -3,7 +3,7 @@
     <a routerLink="/" class="sidenav__brand">
       <h1>My App</h1>
     </a>
-    <div *ngIf="accountService.currentUser$ | async" fxLayout="column">
+    <ng-container *ngIf="accountService.currentUser$ | async">
       <a
         *ngFor="let menu of navMenuItems"
         class="sidenav__page-route"
@@ -15,7 +15,7 @@
           <span>{{ menu.name }}</span>
         </div>
       </a>
-    </div>
+    </ng-container>
   </mat-sidenav>
   <mat-sidenav-content fxLayout="column">
     <app-nav [sideNav]="mainSideNav"></app-nav>

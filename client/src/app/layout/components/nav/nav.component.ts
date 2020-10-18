@@ -1,5 +1,7 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatSidenav } from '@angular/material/sidenav';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { NavMenuItems } from '../../../_domain/nav-menu';
 import { AccountService } from '../../../_services/account.service';
@@ -11,7 +13,7 @@ import { UserSessionService } from '../../../_services/user-session.service';
   styleUrls: ['./nav.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class NavComponent implements OnInit {
+export class NavComponent {
   @Input() public sideNav: MatSidenav;
   public navMenuItems = NavMenuItems;
   public model = {
@@ -20,18 +22,25 @@ export class NavComponent implements OnInit {
   };
 
   constructor(
+    private router: Router,
+    private snackBar: MatSnackBar,
     public accountService: AccountService,
     public userSession: UserSessionService
   ) { }
 
-  ngOnInit(): void {
-    this.getCurrentUser();
-  }
-
   login(): void {
     this.accountService.login(this.model).subscribe(
-      response => {},
-      error => console.log(error)
+      response => this.router.navigateByUrl('/members'),
+      error => {
+        console.log(error);
+        switch (typeof(error.error)) {
+          case 'object':
+            this.openSnackBar(error.error.title, 'Error');
+            break;
+          default:
+            this.openSnackBar(error.error, 'Error');
+        }
+      }
     );
     this.model.password = '';
   }
@@ -39,15 +48,12 @@ export class NavComponent implements OnInit {
   logout(): void {
     this.accountService.logout();
     this.model.username = '';
+    this.router.navigateByUrl('/');
   }
 
-  getCurrentUser(): void {
-    this.accountService.currentUser$.subscribe(user => {
-      if (user) {
-        this.model.username = user.username;
-      }
-    }, error => {
-      console.log(error);
+  openSnackBar(message: string, action: string): void {
+    this.snackBar.open(message, action, {
+      duration: 3500
     });
   }
 }
