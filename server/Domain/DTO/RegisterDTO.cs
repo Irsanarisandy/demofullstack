@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace API.DTO
+namespace Domain.DTO
 {
-    public class LoginDTO
+    public class RegisterDTO
     {
         [Required]
         public string Username { get; set; }

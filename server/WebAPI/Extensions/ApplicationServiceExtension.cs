@@ -1,11 +1,12 @@
-using API.Data;
-using API.Interfaces;
-using API.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace API.Extensions
+using Repository;
+using Service.Implementations;
+using Service.Interfaces;
+
+namespace WebAPI.Extensions
 {
     public static class ApplicationServiceExtensions
     {

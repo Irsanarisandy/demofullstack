@@ -1,14 +1,15 @@
-using API.Data;
-using API.DTO;
-using API.Entities;
-using API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace API.Controllers
+using Domain.DTO;
+using Domain.Entities;
+using Repository;
+using Service.Interfaces;
+
+namespace WebAPI.Controllers
 {
     public class AccountController : BaseApiController
     {

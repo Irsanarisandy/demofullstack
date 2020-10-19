@@ -1,12 +1,13 @@
-using API.Data;
-using API.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace API.Controllers
+using Domain.Entities;
+using Repository;
+
+namespace WebAPI.Controllers
 {
     public class UsersController : BaseApiController
     {

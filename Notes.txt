@@ -1,6 +1,8 @@
 Creating .Net Core project manually by command line:
 => dotnet new sln
 -- create solution file, important to have for any C# project
+=> dotnet new classlib -o Domain
+-- create a .Net Core Class Library project, to be contained in the "Domain" folder
 => dotnet new webapi -o API
 -- create a .Net Core Web API project, to be contained in the "API" folder
 => dotnet sln add API
@@ -17,13 +19,26 @@ Accessing database from .Net Core project:
 - using terminal, install Entity Framework Core Tools
 -- go to NuGet website and search for dotnet-ef to copy and paste the command
 -- make sure that the version is related to the installed .Net Core SDK being used
-=> dotnet-ef migrations add InitialCreate -o Data/Migrations
--- create the database migration "InitialCreate" from current entities in "Data/Migrations" folder
--- this has to be in "Migrations" folder, which can be placed anywhere
+=> dotnet-ef migrations add InitialCreate -o Migrations
+-- this command doesn't work unless file that implements dbcontext is in the UI project, so temporarily move this file to the UI project to run this command
+-- create the database migration "InitialCreate" from current entities in "Migrations" folder
+-- this has to be in "Migrations" folder, which can be placed anywhere within project
 => dotnet-ef database update
 -- create the database from the structure given by the database migration
 => dotnet-ef database drop
 -- delete the database
+
+.Net Core Onion Architecture:
+* https://www.c-sharpcorner.com/article/onion-architecture-in-asp-net-core-mvc/
+* https://www.c-sharpcorner.com/article/implementing-onion-architecture-in-asp-net-core-3-om/
+- Domain / Data Access Layer
+-- core layer of the application, includes data entities
+- Repository Layer
+-- acts as an abstract layer between the data access and business layer of the application
+- Service Layer
+-- business layer of the application, is used to communicate between UI and repository layers using interfaces
+- UI Layer
+-- external layer of the application, can be a web application, API or another UI application
 
 Generate .gitignore file for .Net Core project:
 => dotnet new gitignore
