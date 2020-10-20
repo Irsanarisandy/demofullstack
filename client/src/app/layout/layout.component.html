@@ -19,7 +19,7 @@
   </mat-sidenav>
   <mat-sidenav-content fxLayout="column">
     <app-nav [sideNav]="mainSideNav"></app-nav>
-    <div fxFlex>
+    <div fxFlex [style.padding.px]="20">
       <router-outlet></router-outlet>
     </div>
     <app-footer></app-footer>

@@ -9,3 +9,7 @@ export const NavMenuItems: NavMenu[] = [
   { name: 'Lists', icon: 'emoji_people', routerLink: '/lists' },
   { name: 'Messages', icon: 'chat', routerLink: '/messages' },
 ];
+
+export const ErrorMenuItems: NavMenu[] = [
+  { name: 'Test Errors', icon: 'error_outline', routerLink: '/test-errors' },
+];

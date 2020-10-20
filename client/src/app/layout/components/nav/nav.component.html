@@ -19,6 +19,19 @@
         </div>
       </a>
     </ng-container>
+    <ng-container>
+      <a
+        *ngFor="let menu of errorMenuItems"
+        class="nav__page-route"
+        [routerLink]="menu.routerLink"
+        routerLinkActive="nav__page-route--active"
+      >
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+          <mat-icon>{{ menu.icon }}</mat-icon>
+          <span>{{ menu.name }}</span>
+        </div>
+      </a>
+    </ng-container>
   </div>
   <span fxFlex></span>
   <form

@@ -1,9 +1,8 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSidenav } from '@angular/material/sidenav';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { NavMenuItems } from '../../../_domain/nav-menu';
+import { ErrorMenuItems, NavMenuItems } from '../../../_domain/nav-menu';
 import { AccountService } from '../../../_services/account.service';
 import { UserSessionService } from '../../../_services/user-session.service';
 
@@ -20,27 +19,17 @@ export class NavComponent {
     username: '',
     password: ''
   };
+  public errorMenuItems = ErrorMenuItems;
 
   constructor(
     private router: Router,
-    private snackBar: MatSnackBar,
     public accountService: AccountService,
     public userSession: UserSessionService
   ) { }
 
   login(): void {
-    this.accountService.login(this.model).subscribe(
-      response => this.router.navigateByUrl('/members'),
-      error => {
-        console.log(error);
-        switch (typeof(error.error)) {
-          case 'object':
-            this.openSnackBar(error.error.title, 'Error');
-            break;
-          default:
-            this.openSnackBar(error.error, 'Error');
-        }
-      }
+    this.accountService.login(this.model).subscribe(response =>
+      this.router.navigateByUrl('/members')
     );
     this.model.password = '';
   }
@@ -49,11 +38,5 @@ export class NavComponent {
     this.accountService.logout();
     this.model.username = '';
     this.router.navigateByUrl('/');
-  }
-
-  openSnackBar(message: string, action: string): void {
-    this.snackBar.open(message, action, {
-      duration: 3500
-    });
   }
 }

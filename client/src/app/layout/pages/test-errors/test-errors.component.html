@@ -1,0 +1,15 @@
+<div fxLayout="column" fxLayoutAlign="center center">
+  <div fxLayout="row" fxLayoutGap="10px">
+    <button mat-stroked-button (click)="get400Error()">Test 400 Error</button>
+    <button mat-stroked-button (click)="get400ValidationError()">Test 400 Validation Error</button>
+    <button mat-stroked-button (click)="get401Error()">Test 401 Error</button>
+    <button mat-stroked-button (click)="get404Error()">Test 404 Error</button>
+    <button mat-stroked-button (click)="get500Error()">Test 500 Error</button>
+  </div>
+
+  <div *ngIf="validationErrors.length > 0">
+    <ul>
+      <li *ngFor="let error of validationErrors">{{ error }}</li>
+    </ul>
+  </div>
+</div>
