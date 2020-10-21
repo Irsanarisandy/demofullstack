@@ -1,0 +1,32 @@
+.member-card {
+  &.mat-card {
+    overflow: hidden;
+    width: 185px;
+  }
+
+  &:hover {
+    .mat-card-image {
+      transform: scale(1.2, 1.2);
+      opacity: 0.7;
+    }
+
+    .member-card__btn-container {
+      top: 108px;
+      opacity: 1;
+    }
+  }
+
+  .mat-card-image {
+    transform: scale(1, 1);
+    transition: ease-out 250ms;
+  }
+
+  &__btn-container {
+    position: absolute;
+    top: 120px;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+  }
+}

@@ -1,0 +1,23 @@
+<mat-card class="member-card">
+  <img mat-card-image [src]="member.photoUrl || './assets/images/user.png'" [alt]="member.knownAs">
+  <div
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    fxLayoutGap="15px"
+    class="member-card__btn-container"
+  >
+    <button mat-mini-fab routerLink="/members/{{member.username}}">
+      <mat-icon>person</mat-icon>
+    </button>
+    <button mat-mini-fab>
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <button mat-mini-fab>
+      <mat-icon>email</mat-icon>
+    </button>
+  </div>
+  <mat-card-title-group>
+    <mat-card-title>{{ member.knownAs }}</mat-card-title>
+    <mat-card-subtitle>{{ member.city }}, {{ member.country }}</mat-card-subtitle>
+  </mat-card-title-group>
+</mat-card>

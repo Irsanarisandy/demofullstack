@@ -1,1 +1,54 @@
-<p>member-detail works!</p>
+<div *ngIf="member" fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="20px">
+  <mat-card class="member-detail">
+    <mat-card-title>{{ member.knownAs }}</mat-card-title>
+    <div class="member-detail__img-wrapper">
+      <img [src]="member.photoUrl || './assets/images/user.png'" [alt]="member.knownAs">
+    </div>
+    <mat-card-content fxLayout="column" fxLayoutGap="5px">
+      <div fxLayout="column">
+        <h3>Location:</h3>
+        <p>{{ member.city }}, {{ member.country }}</p>
+      </div>
+      <div fxLayout="column">
+        <h3>Age:</h3>
+        <p>{{ member.age }}</p>
+      </div>
+      <div fxLayout="column">
+        <h3>Last Active:</h3>
+        <p>{{ member.lastActive }}</p>
+      </div>
+      <div fxLayout="column">
+        <h3>Member Since:</h3>
+        <p>{{ member.created }}</p>
+      </div>
+    </mat-card-content>
+    <mat-card-actions fxLayout="row" fxLayoutGap="5px">
+      <button mat-flat-button fxFlex color="accent">Like</button>
+      <button mat-flat-button fxFlex color="primary">Message</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-tab-group fxFlex>
+    <mat-tab label="About {{ member.knownAs }}">
+      <div>
+        <h3>Description</h3>
+        <p>{{ member.introduction }}</p>
+        <h3>Looking For</h3>
+        <p>{{ member.lookingFor }}</p>
+      </div>
+    </mat-tab>
+    <mat-tab label="Interests">
+      <p>{{ member.interests }}</p>
+    </mat-tab>
+    <mat-tab label="Photos">
+      <ngx-gallery
+        [options]="galleryOptions"
+        [images]="galleryImages"
+        style="display: inline-block; margin-bottom: 20px;"
+      ></ngx-gallery>
+    </mat-tab>
+    <mat-tab label="Messages">
+      <p>Messages will go here</p>
+    </mat-tab>
+  </mat-tab-group>
+</div>

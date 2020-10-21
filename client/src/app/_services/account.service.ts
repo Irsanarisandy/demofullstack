@@ -4,12 +4,13 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { User } from '../_domain/user';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-  private baseURL = 'https://localhost:5001/api';
+  private baseURL = environment.apiUrl;
 
   // to enable current user to be kept when browser has been refreshed
   private currentUserSource = new ReplaySubject<User>(1);

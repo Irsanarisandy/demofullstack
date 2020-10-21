@@ -4,6 +4,7 @@ import { LayoutComponent } from './layout.component';
 import { NavComponent } from './components/nav/nav.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { RegisterComponent } from './components/register/register.component';
+import { MemberCardComponent } from './components/member-card/member-card.component';
 
 import { LayoutRoutingComponent, LayoutRoutingModule } from './layout-routing.module';
 import { SharedModule } from '../shared/shared.module';
@@ -14,7 +15,8 @@ import { SharedModule } from '../shared/shared.module';
     LayoutComponent,
     NavComponent,
     FooterComponent,
-    RegisterComponent
+    RegisterComponent,
+    MemberCardComponent
   ],
   imports: [
     LayoutRoutingModule,
