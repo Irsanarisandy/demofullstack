@@ -19,10 +19,12 @@ Accessing database from .Net Core project:
 - using terminal, install Entity Framework Core Tools
 -- go to NuGet website and search for dotnet-ef to copy and paste the command
 -- make sure that the version is related to the installed .Net Core SDK being used
-=> dotnet-ef migrations add InitialCreate -o Migrations
--- this command doesn't work unless file that implements dbcontext is in the UI project, so temporarily move this file to the UI project to run this command
--- create the database migration "InitialCreate" from current entities in "Migrations" folder
+-- note: "dotnet-ef" command doesn't work unless file that implements dbcontext is in the UI project, so temporarily move this file to the UI project to use this command
+=> dotnet-ef migrations add InitialCreate -o Data/Migrations
+-- create the database migration "InitialCreate" from current entities in "Data/Migrations" folder
 -- this has to be in "Migrations" folder, which can be placed anywhere within project
+=> dotnet-ef migrations remove
+-- undo the latest migration from current entities
 => dotnet-ef database update
 -- create the database from the structure given by the database migration
 => dotnet-ef database drop
@@ -42,6 +44,11 @@ Accessing database from .Net Core project:
 
 Generate .gitignore file for .Net Core project:
 => dotnet new gitignore
+
+Generate random json data:
+- go to https://www.json-generator.com/ to generate the json data
+-- for this project, can copy syntax from "jsongenerator.txt" file
+- for this project, copy the result into "UserSeedData.json" located in "Data" folder
 
 Angular lifecycle hooks:
 - OnInit

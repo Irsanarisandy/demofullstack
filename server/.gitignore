@@ -442,5 +442,6 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 
 appsettings.json
+[Uu]serSeedData.json
 Migrations/
 *.db
