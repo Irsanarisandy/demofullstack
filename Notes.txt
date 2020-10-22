@@ -50,6 +50,10 @@ Generate random json data:
 -- for this project, can copy syntax from "jsongenerator.txt" file
 - for this project, copy the result into "UserSeedData.json" located in "Data" folder
 
+Application settings for prod:
+- can use "appsettings-template.json" file by renaming it to "appsettings.json"
+- for this project, it needs a Cloudinary account to fill in the corresponding values
+
 Angular lifecycle hooks:
 - OnInit
 -- executes after constructor, which is after the class and its property variables from dependency injection have been instantiated

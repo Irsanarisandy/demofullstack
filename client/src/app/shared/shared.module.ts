@@ -7,8 +7,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { SharedMaterialModule } from './shared-material.module';
+import { PhotoEditorComponent } from './components/photo-editor/photo-editor.component';
 
 const allModules = [
   CommonModule,
@@ -19,12 +21,18 @@ const allModules = [
   FormsModule,
   NgxGalleryModule,
   NgxSpinnerModule,
+  FileUploadModule,
   SharedMaterialModule
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    PhotoEditorComponent
+  ],
   imports: allModules,
-  exports: allModules
+  exports: [
+    ...allModules,
+    PhotoEditorComponent
+  ]
 })
 export class SharedModule { }

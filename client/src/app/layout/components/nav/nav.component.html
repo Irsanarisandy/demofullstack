@@ -60,6 +60,7 @@
   </form>
   <button *ngIf="(accountService.currentUser$ | async) as user" mat-flat-button [matMenuTriggerFor]="navMenu">
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+      <img class="nav__user-photo" [src]="user.photoUrl" [alt]="user.username" />
       <span>Welcome, {{ user.username | titlecase }}</span>
       <mat-icon>arrow_drop_down</mat-icon>
     </div>

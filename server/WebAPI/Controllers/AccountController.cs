@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,6 +51,7 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
         {
             var user = await _context.Users
+                .Include(x => x.Photos)
                 .SingleOrDefaultAsync(x => x.Username.Equals(loginDTO.Username.ToLower()));
 
             if (user == null) return Unauthorized("Username doesn't exist!");
@@ -66,7 +68,8 @@ namespace WebAPI.Controllers
             return new UserDTO
             {
                 Username = user.Username,
-                Token = _tokenService.CreateToken(user)
+                Token = _tokenService.CreateToken(user),
+                PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url
             };
         }
 

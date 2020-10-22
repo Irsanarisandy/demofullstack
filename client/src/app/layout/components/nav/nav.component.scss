@@ -41,4 +41,9 @@
   .nav__login-btn {
     padding: 6px 15px;
   }
+
+  &__user-photo {
+    border: 2px solid white;
+    max-height: 50px;
+  }
 }
