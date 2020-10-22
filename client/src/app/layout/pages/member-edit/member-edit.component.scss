@@ -1,0 +1,38 @@
+.member-edit {
+  &.mat-card {
+    height: min-content;
+    width: 320px;
+  }
+
+  &__img-wrapper {
+    text-align: center;
+    margin-bottom: 10px;
+    width: 100%;
+
+    img {
+      border: 2px solid lightgray;
+      border-radius: 10px;
+      padding: 5px;
+      width: 100%;
+    }
+  }
+
+  .mat-card-content {
+    h1, h2, h3, h4, h5, h6 {
+      margin: 0;
+    }
+
+    p {
+      margin: 5px 0;
+    }
+  }
+
+  &__about {
+    padding: 20px 0;
+
+    .mat-form-field-wrapper {
+      margin: 0;
+      padding: 0;
+    }
+  }
+}

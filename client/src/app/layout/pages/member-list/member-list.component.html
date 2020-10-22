@@ -1,6 +1,6 @@
 <div fxLayout="row wrap" fxLayoutGap="20px">
   <app-member-card
-    *ngFor="let member of members"
+    *ngFor="let member of members$ | async"
     [member]="member"
   ></app-member-card>
 </div>

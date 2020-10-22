@@ -1,0 +1,90 @@
+<div *ngIf="member" fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="20px">
+  <mat-card class="member-edit">
+    <mat-card-title>{{ member.knownAs }}</mat-card-title>
+    <div class="member-edit__img-wrapper">
+      <img [src]="member.photoUrl || './assets/images/user.png'" [alt]="member.knownAs">
+    </div>
+    <mat-card-content fxLayout="column" fxLayoutGap="5px">
+      <div fxLayout="column">
+        <h3>Location:</h3>
+        <p>{{ member.city }}, {{ member.country }}</p>
+      </div>
+      <div fxLayout="column">
+        <h3>Age:</h3>
+        <p>{{ member.age }}</p>
+      </div>
+      <div fxLayout="column">
+        <h3>Last Active:</h3>
+        <p>{{ member.lastActive }}</p>
+      </div>
+      <div fxLayout="column">
+        <h3>Member Since:</h3>
+        <p>{{ member.created }}</p>
+      </div>
+    </mat-card-content>
+    <mat-card-actions fxLayout="row" fxLayoutGap="5px">
+      <button
+        mat-flat-button
+        form="editAboutForm"
+        fxFlex
+        color="accent"
+        type="submit"
+        [disabled]="!editAboutForm.dirty"
+      >Save Changes</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-tab-group fxFlex>
+    <mat-tab label="About {{ member.knownAs }}">
+      <form
+        #editAboutForm="ngForm"
+        id="editAboutForm"
+        fxLayout="column"
+        fxLayoutGap="20px"
+        class="member-edit__about"
+        (ngSubmit)="updateMember()"
+      >
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>Description</mat-label>
+          <textarea
+            matInput
+            [(ngModel)]="member.introduction"
+            name="introduction"
+            rows="5"
+          ></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>Looking For</mat-label>
+          <textarea
+            matInput
+            [(ngModel)]="member.lookingFor"
+            name="lookingFor"
+            rows="5"
+          ></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline" fxFlex>
+          <mat-label>Interests</mat-label>
+          <textarea
+            matInput
+            [(ngModel)]="member.interests"
+            name="interests"
+            rows="5"
+          ></textarea>
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutGap="10px">
+          <mat-form-field appearance="outline">
+            <mat-label>City</mat-label>
+            <input matInput [(ngModel)]="member.city" name="city" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Country</mat-label>
+            <input matInput [(ngModel)]="member.country" name="country" />
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-tab>
+    <mat-tab label="Photos">
+      Edit Photos will go here
+    </mat-tab>
+  </mat-tab-group>
+</div>
