@@ -1,20 +1,63 @@
 <form
   fxLayout="column"
-  #registerForm="ngForm"
+  fxLayoutGap="10px"
+  [formGroup]="registerForm"
   (ngSubmit)="register()"
   autocomplete="off"
 >
   <h2>Sign Up</h2>
-  <mat-form-field appearance="outline">
-    <mat-label>Username</mat-label>
-    <input matInput name="username" [(ngModel)]="model.username" />
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Password</mat-label>
-    <input matInput name="password" [(ngModel)]="model.password" type="password" />
-  </mat-form-field>
+  <hr>
+  <mat-radio-group formControlName="gender" fxLayoutGap="15px">
+    <label>I am a:</label>
+    <mat-radio-button value="male">Male</mat-radio-button>
+    <mat-radio-button value="female">Female</mat-radio-button>
+  </mat-radio-group>
+  <app-custom-input
+    [formControl]="registerForm.controls['username']"
+    label="Username"
+  ></app-custom-input>
+  <app-custom-input
+    [formControl]="registerForm.controls['knownAs']"
+    label="Known As"
+  ></app-custom-input>
+  <app-custom-input
+    [formControl]="registerForm.controls['dateOfBirth']"
+    label="Date Of Birth"
+    type="date"
+  ></app-custom-input>
+  <app-custom-input
+    [formControl]="registerForm.controls['city']"
+    label="City"
+  ></app-custom-input>
+  <app-custom-input
+    [formControl]="registerForm.controls['country']"
+    label="Country"
+  ></app-custom-input>
+  <app-custom-input
+    [formControl]="registerForm.controls['password']"
+    label="Password"
+    type="password"
+    hintLabel="Max. 14 characters"
+    hint="{{ registerForm.controls['password']?.value.length || 0 }}/14"
+    maxLength="14"
+  ></app-custom-input>
+  <app-custom-input
+    [formControl]="registerForm.controls['confirmedPassword']"
+    label="Confirmed Password"
+    type="password"
+    maxLength="14"
+  ></app-custom-input>
+  <div *ngIf="validationErrors.length > 0">
+    <ul>
+      <li *ngFor="let error of validationErrors">{{ error }}</li>
+    </ul>
+  </div>
   <div fxLayout="row" fxLayoutGap="10px">
-    <button mat-flat-button color="primary" type="submit">Register</button>
-    <button mat-flat-button color="accent" (click)="cancel()" type="button">Cancel</button>
+    <button mat-flat-button [disabled]="!registerForm.valid" color="primary" type="submit">
+      Register
+    </button>
+    <button mat-flat-button color="accent" (click)="cancel()" type="button">
+      Cancel
+    </button>
   </div>
 </form>
