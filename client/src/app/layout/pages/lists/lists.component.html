@@ -1,1 +1,34 @@
-<p>lists works!</p>
+<div fxLayout="column" fxLayoutAlign="center center" [style.margin-bottom.px]="20">
+  <h2 style="margin: 0 0 10px">
+    {{ likesParams.predicate === 'liked' ? 'Members I like' : 'Members who like me' }}
+  </h2>
+  <form
+    #listForm="ngForm"
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    fxLayoutGap="15px"
+    autocomplete="off"
+  >
+    <mat-button-toggle-group [(ngModel)]="likesParams.predicate" name="predicate" (change)="loadLikes()">
+      <mat-button-toggle value="liked">Members I like</mat-button-toggle>
+      <mat-button-toggle value="likedBy">Members who like me</mat-button-toggle>
+    </mat-button-toggle-group>
+  </form>
+</div>
+
+<div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
+  <app-member-card
+    *ngFor="let member of members"
+    [member]="member"
+  ></app-member-card>
+</div>
+
+<mat-paginator
+  *ngIf="pagination"
+  [hidePageSize]="true"
+  [length]="pagination.totalItems"
+  [pageIndex]="pagination.currentPage-1"
+  [pageSize]="pagination.itemsPerPage"
+  [showFirstLastButtons]="true"
+  (page)="pageChanged($event)"
+></mat-paginator>

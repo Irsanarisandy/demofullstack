@@ -23,7 +23,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         if (error) {
           switch (error.status) {
             case 400:
-              if (typeof(error.error) === 'object' && error.error.errors) {
+              if (error.error.errors) {
                 const modalStateErrors = [];
                 for (const key in error.error.errors) {
                   if (error.error.errors[key]) {
@@ -31,8 +31,10 @@ export class ErrorInterceptor implements HttpInterceptor {
                   }
                 }
                 throw modalStateErrors.flat();
-              } else {
+              } else if (typeof(error.error) === 'object') {
                 this.openSnackBar(error.statusText, error.status);
+              } else {
+                this.openSnackBar(error.error, error.status);
               }
               break;
             case 401:

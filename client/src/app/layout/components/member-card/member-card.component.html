@@ -9,7 +9,7 @@
     <button mat-mini-fab routerLink="/members/{{member.username}}">
       <mat-icon>person</mat-icon>
     </button>
-    <button mat-mini-fab>
+    <button mat-mini-fab (click)="toggleLike(member)">
       <mat-icon>favorite</mat-icon>
     </button>
     <button mat-mini-fab>

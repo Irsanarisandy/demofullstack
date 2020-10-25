@@ -3,7 +3,7 @@ using System.Linq;
 
 using Domain.DTO;
 using Domain.Entities;
-using WebAPI.Extensions;
+using Domain.Extensions;
 
 namespace WebAPI.Helpers
 {

@@ -1,6 +1,6 @@
 using System;
 
-namespace WebAPI.Extensions
+namespace Domain.Extensions
 {
     public static class DateTimeExtensions
     {
