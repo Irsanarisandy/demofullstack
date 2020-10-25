@@ -15,11 +15,11 @@
       </div>
       <div fxLayout="column">
         <h3>Last Active:</h3>
-        <p>{{ member.lastActive }}</p>
+        <p>{{ member.lastActive | timeago }}</p>
       </div>
       <div fxLayout="column">
         <h3>Member Since:</h3>
-        <p>{{ member.created }}</p>
+        <p>{{ member.created | date: 'dd MMMM yyyy' }}</p>
       </div>
     </mat-card-content>
     <mat-card-actions fxLayout="row" fxLayoutGap="5px">

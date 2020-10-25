@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FileUploadModule } from 'ng2-file-upload';
+import { TimeagoModule } from 'ngx-timeago';
 
 import { SharedMaterialModule } from './shared-material.module';
 import { PhotoEditorComponent } from './components/photo-editor/photo-editor.component';
@@ -32,11 +33,15 @@ const allModules = [
     PhotoEditorComponent,
     CustomInputComponent
   ],
-  imports: allModules,
+  imports: [
+    ...allModules,
+    TimeagoModule.forRoot()
+  ],
   exports: [
     ...allModules,
     PhotoEditorComponent,
-    CustomInputComponent
+    CustomInputComponent,
+    TimeagoModule
   ]
 })
 export class SharedModule { }
