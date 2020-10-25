@@ -25,7 +25,10 @@ namespace WebAPI.Extensions
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddDbContext<DataContext>(options =>
             {
-                options.UseSqlite(config.GetConnectionString("DefaultConnection"));
+                options.UseSqlite(
+                    config.GetConnectionString("DefaultConnection"),
+                    x => x.MigrationsAssembly("WebAPI")
+                );
             });
 
             return services;

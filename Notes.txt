@@ -19,7 +19,6 @@ Accessing database from .Net Core project:
 - using terminal, install Entity Framework Core Tools
 -- go to NuGet website and search for dotnet-ef to copy and paste the command
 -- make sure that the version is related to the installed .Net Core SDK being used
--- note: "dotnet-ef" command doesn't work unless file that implements dbcontext is in the UI project, so temporarily move this file to the UI project to use this command
 => dotnet-ef migrations add InitialCreate -o Data/Migrations
 -- create the database migration "InitialCreate" from current entities in "Data/Migrations" folder
 -- this has to be in "Migrations" folder, which can be placed anywhere within project
