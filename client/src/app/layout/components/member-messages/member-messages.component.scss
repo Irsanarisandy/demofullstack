@@ -1,0 +1,42 @@
+.member-messages {
+  h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+  }
+
+  &__message-section {
+    padding: 10px 0;
+  }
+
+  &__photo {
+    border-radius: 50%;
+    max-height: 40px;
+  }
+
+  &__content {
+    border-radius: 10px;
+    background-color: gray;
+    color: white;
+    padding: 10px;
+  }
+
+  &__status {
+    color: grey;
+    font-size: 12px;
+
+    .mat-icon {
+      font-size: 18px;
+      height: 18px;
+      width: 18px;
+    }
+  }
+
+  &__send-form {
+    .mat-form-field-wrapper {
+      padding: 0;
+    }
+
+    button {
+      margin: 12px;
+    }
+  }
+}

@@ -1,1 +1,109 @@
-<p>messages works!</p>
+<div fxLayout="column" fxLayoutAlign="center start">
+  <form
+    #listForm="ngForm"
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    fxLayoutGap="15px"
+    autocomplete="off"
+  >
+    <mat-button-toggle-group [(ngModel)]="messageParams.container" name="container" (change)="loadMessages()">
+      <mat-button-toggle value="unread">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+          <mat-icon>mark_email_unread</mat-icon>
+          <span>Unread</span>
+        </div>
+      </mat-button-toggle>
+      <mat-button-toggle value="inbox">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+          <mat-icon>email</mat-icon>
+          <span>Inbox</span>
+        </div>
+      </mat-button-toggle>
+      <mat-button-toggle value="outbox">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+          <mat-icon>send</mat-icon>
+          <span>Outbox</span>
+        </div>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </form>
+</div>
+
+<p *ngIf="messages.length === 0">No Messages</p>
+
+<div *ngIf="messages.length > 0">
+  <mat-table [ngStyle]="{ 'display': loading ? 'none' : 'block' }" [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="content">
+      <mat-header-cell *matHeaderCellDef>Message</mat-header-cell>
+      <mat-cell
+        *matCellDef="let message"
+        [routerLink]="
+          '/members/' + (messageParams.container === 'outbox' ?
+          message.recipientUsername : message.senderUsername)
+        "
+        [queryParams]="{ tab: 3 }"
+        style="cursor: pointer;"
+      >
+        {{ message.content }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="person">
+      <mat-header-cell *matHeaderCellDef>
+        {{ messageParams.container === 'outbox' ? 'To' : 'From' }}
+      </mat-header-cell>
+      <mat-cell
+        *matCellDef="let message"
+        [routerLink]="
+          '/members/' + (messageParams.container === 'outbox' ?
+          message.recipientUsername : message.senderUsername)
+        "
+        style="cursor: pointer;"
+      >
+        <div *ngIf="messageParams.container === 'outbox'" fxLayout="column">
+          <img
+            [src]="message.recipientPhotoUrl || '/assets/images/user.png'"
+            [alt]="message.recipientUsername"
+            style="border-radius: 50%; max-height: 50px;"
+          />
+          <span>{{ message.recipientUsername | titlecase }}</span>
+        </div>
+        <div *ngIf="messageParams.container !== 'outbox'" fxLayout="column">
+          <img
+            [src]="message.senderPhotoUrl || '/assets/images/user.png'"
+            [alt]="message.senderUsername"
+            style="border-radius: 50%; max-height: 50px;"
+          />
+          <span>{{ message.senderUsername | titlecase }}</span>
+        </div>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="messageSent">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ messageParams.container === 'outbox' ? 'Sent' : 'Received' }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let message">
+        {{ message.messageSent | timeago }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let message">
+        <button mat-mini-fab style="background-color: red; margin: 12px;" (click)="deleteMessage(message.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="['content', 'person', 'messageSent', 'delete']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['content', 'person', 'messageSent', 'delete']"></mat-row>
+  </mat-table>
+</div>
+
+<mat-paginator
+  *ngIf="pagination && messages.length > 0 && !loading"
+  [hidePageSize]="true"
+  [length]="pagination.totalItems"
+  [pageIndex]="pagination.currentPage-1"
+  [pageSize]="pagination.itemsPerPage"
+  [showFirstLastButtons]="true"
+  (page)="pageChanged($event)"
+></mat-paginator>

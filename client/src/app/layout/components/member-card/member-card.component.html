@@ -12,7 +12,7 @@
     <button mat-mini-fab (click)="toggleLike(member)">
       <mat-icon>favorite</mat-icon>
     </button>
-    <button mat-mini-fab>
+    <button mat-mini-fab routerLink="/members/{{member.username}}" [queryParams]="{ tab: 3 }">
       <mat-icon>email</mat-icon>
     </button>
   </div>

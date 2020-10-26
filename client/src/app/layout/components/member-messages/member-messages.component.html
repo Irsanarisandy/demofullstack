@@ -1,0 +1,65 @@
+<div fxLayout="column" fxLayoutAlign="start center" class="member-messages">
+  <div *ngIf="messages.length === 0" fxFlexFill class="member-messages__message-section">
+    <p>No messages yet...say hi by using the message box below</p>
+  </div>
+  <div
+    *ngFor="let message of messages"
+    fxLayout="row"
+    fxLayoutGap="10px"
+    fxFlexFill
+    class="member-messages__message-section"
+  >
+    <div>
+      <img
+        *ngIf="message.senderUsername === username"
+        [src]="message.senderPhotoUrl"
+        [alt]="message.senderUsername"
+        class="member-messages__photo"
+      />
+    </div>
+    <div *ngIf="message.senderUsername !== username" fxFlex></div>
+    <div fxLayout="column" fxLayoutGap="5px">
+      <div class="member-messages__content">
+        <p>{{ message.content }}</p>
+      </div>
+      <div
+        fxLayout="row"
+        [fxLayoutAlign]="message.senderUsername === username ? 'start center' : 'end center'"
+        fxLayoutGap="5px"
+        class="member-messages__status"
+      >
+        <mat-icon>schedule</mat-icon>
+        <span>{{ message.messageSent | timeago }}</span>
+        <span *ngIf="!message.dateRead && message.senderUsername !== username">
+          (unread)
+        </span>
+        <span *ngIf="message.dateRead && message.senderUsername !== username">
+          (read {{ message.dateRead | timeago }})
+        </span>
+      </div>
+    </div>
+  </div>
+  <form
+    #messageForm="ngForm"
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    fxLayoutGap="10px"
+    fxFlexFill
+    class="member-messages__send-form"
+    (ngSubmit)="sendMessage()"
+    autocomplete="off"
+  >
+    <mat-form-field appearance="outline" fxFlex>
+      <input
+        matInput
+        placeholder="Send a private message"
+        [(ngModel)]="messageContent"
+        name="messageContent"
+        required
+      />
+    </mat-form-field>
+    <button mat-fab [disabled]="!messageForm.valid" type="submit" color="primary">
+      <mat-icon>send</mat-icon>
+    </button>
+  </form>
+</div>

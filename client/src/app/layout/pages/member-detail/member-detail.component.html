@@ -24,11 +24,11 @@
     </mat-card-content>
     <mat-card-actions fxLayout="row" fxLayoutGap="5px">
       <button mat-flat-button fxFlex color="accent">Like</button>
-      <button mat-flat-button fxFlex color="primary">Message</button>
+      <button mat-flat-button fxFlex color="primary" (click)="selectTab(3)">Message</button>
     </mat-card-actions>
   </mat-card>
 
-  <mat-tab-group fxFlex>
+  <mat-tab-group #memberTabGroup fxFlex class="member-detail-tab" (selectedTabChange)="onTabActivated($event)">
     <mat-tab label="About {{ member.knownAs }}">
       <div>
         <h3>Description</h3>
@@ -48,7 +48,7 @@
       ></ngx-gallery>
     </mat-tab>
     <mat-tab label="Messages">
-      <p>Messages will go here</p>
+      <app-member-messages [messages]="messages" [username]="member.username"></app-member-messages>
     </mat-tab>
   </mat-tab-group>
 </div>

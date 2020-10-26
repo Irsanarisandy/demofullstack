@@ -12,6 +12,7 @@ import { MessagesComponent } from './pages/messages/messages.component';
 import { TestErrorsComponent } from './pages/test-errors/test-errors.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ServerErrorComponent } from './pages/server-error/server-error.component';
+import { MemberDetailResolver } from '../_resolvers/member-detail.resolver';
 
 const routes: Routes = [
   {
@@ -43,7 +44,8 @@ const routes: Routes = [
       },
       {
         path: 'members/:username',
-        component: MemberDetailComponent
+        component: MemberDetailComponent,
+        resolve: { member: MemberDetailResolver }
       }
     ]
   },
