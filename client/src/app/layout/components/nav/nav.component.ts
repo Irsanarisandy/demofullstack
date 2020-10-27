@@ -1,8 +1,7 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
 import { MatSidenav } from '@angular/material/sidenav';
 
-import { ErrorMenuItems, NavMenuItems } from '../../../_domain/nav-menu';
+import { AdminMenuItems, NavMenuItems } from '../../../_domain/nav-menu';
 import { AccountService } from '../../../_services/account.service';
 import { UserSessionService } from '../../../_services/user-session.service';
 
@@ -19,24 +18,21 @@ export class NavComponent {
     username: '',
     password: ''
   };
-  public errorMenuItems = ErrorMenuItems;
+  public adminMenuItems = AdminMenuItems;
 
   constructor(
-    private router: Router,
     public accountService: AccountService,
     public userSession: UserSessionService
   ) { }
 
   login(): void {
-    this.accountService.login(this.model).subscribe(response =>
-      this.router.navigateByUrl('/members')
-    );
+    this.accountService.login(this.model).subscribe(response => location.assign('/members'));
     this.model.password = '';
   }
 
   logout(): void {
     this.accountService.logout();
     this.model.username = '';
-    this.router.navigateByUrl('/');
+    location.assign('/');
   }
 }

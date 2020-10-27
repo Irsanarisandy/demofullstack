@@ -74,6 +74,7 @@ Overriding styling of built-in or 3rd party components (e.g. Angular Material):
 Angular folder structure:
 - layout: components on the page level and routing
 - shared: all components and modules that can be used anywhere
+- admin: components related to admin, lazy loaded in layout-routing so no need to import shared.module or reference in app.module
 
 Angular Auth Guard:
 - used for preventing unauthorized users from going to specific pages that requires login credentials

@@ -1,0 +1,13 @@
+<div *appHasRole="['Admin', 'Moderator']" fxLayout="column" fxLayoutGap="15px" class="admin-panel">
+  <h2 class="title">Admin Panel</h2>
+  <mat-card>
+    <mat-tab-group>
+      <mat-tab *appHasRole="['Admin']" label="User Management">
+        <app-user-management></app-user-management>
+      </mat-tab>
+      <mat-tab label="Photo Management">
+        <app-photo-management></app-photo-management>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div>

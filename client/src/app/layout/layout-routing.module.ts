@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuard } from '../_guards/auth.guard';
 import { PreventUnsavedChangesGuard } from '../_guards/prevent-unsaved-changes.guard';
+import { AdminGuard } from '../_guards/admin.guard';
+import { MemberDetailResolver } from '../_resolvers/member-detail.resolver';
 import { HomeComponent } from './pages/home/home.component';
 import { ListsComponent } from './pages/lists/lists.component';
 import { MemberDetailComponent } from './pages/member-detail/member-detail.component';
@@ -12,7 +14,6 @@ import { MessagesComponent } from './pages/messages/messages.component';
 import { TestErrorsComponent } from './pages/test-errors/test-errors.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ServerErrorComponent } from './pages/server-error/server-error.component';
-import { MemberDetailResolver } from '../_resolvers/member-detail.resolver';
 
 const routes: Routes = [
   {
@@ -46,12 +47,18 @@ const routes: Routes = [
         path: 'members/:username',
         component: MemberDetailComponent,
         resolve: { member: MemberDetailResolver }
+      },
+      {
+        path: 'admin',
+        loadChildren: () => import(`../admin/admin.module`).then(m => m.AdminModule),
+        canActivate: [AdminGuard]
       }
     ]
   },
   {
     path: 'test-errors',
-    component: TestErrorsComponent
+    component: TestErrorsComponent,
+    canActivate: [AdminGuard]
   },
   {
     path: 'not-found',

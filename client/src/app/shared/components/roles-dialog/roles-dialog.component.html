@@ -1,0 +1,25 @@
+<div fxLayout="column" fxLayoutGap="15px" class="roles-dialog">
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <h1 mat-dialog-title [style.margin.px]="0">
+      Edit roles for {{ user.username }}
+    </h1>
+    <button mat-icon-button mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <form #rolesForm="ngForm" id="rolesForm" fxLayout="column" fxLayoutGap="10px">
+    <mat-checkbox
+      *ngFor="let role of roles"
+      [checked]="role.checked"
+      [value]="role.name"
+      (change)="role.checked = !role.checked"
+      [disabled]="role.name === 'Admin' && user.username === 'admin'"
+    >
+      {{ role.name }}
+    </mat-checkbox>
+  </form>
+  <mat-dialog-actions align="end">
+    <button mat-flat-button mat-dialog-close>Cancel</button>
+    <button mat-flat-button (click)="updateRoles()">Submit</button>
+  </mat-dialog-actions>
+</div>

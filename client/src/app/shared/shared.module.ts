@@ -9,8 +9,10 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { TimeagoModule } from 'ngx-timeago';
 
 import { SharedMaterialModule } from './shared-material.module';
+import { HasRoleDirective } from '../_directives/has-role.directive';
 import { PhotoEditorComponent } from './components/photo-editor/photo-editor.component';
 import { CustomInputComponent } from './components/custom-input/custom-input.component';
+import { RolesDialogComponent } from './components/roles-dialog/roles-dialog.component';
 
 const allModules = [
   CommonModule,
@@ -24,19 +26,22 @@ const allModules = [
   SharedMaterialModule
 ];
 
+const allComponentsAndDirectives = [
+  HasRoleDirective,
+  PhotoEditorComponent,
+  CustomInputComponent,
+  RolesDialogComponent
+];
+
 @NgModule({
-  declarations: [
-    PhotoEditorComponent,
-    CustomInputComponent
-  ],
+  declarations: allComponentsAndDirectives,
   imports: [
     ...allModules,
     TimeagoModule.forRoot()
   ],
   exports: [
     ...allModules,
-    PhotoEditorComponent,
-    CustomInputComponent,
+    ...allComponentsAndDirectives,
     TimeagoModule
   ]
 })

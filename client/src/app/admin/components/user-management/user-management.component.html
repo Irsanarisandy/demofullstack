@@ -1,0 +1,24 @@
+<mat-table [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="username">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Username</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.username }}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="roles">
+    <mat-header-cell *matHeaderCellDef>Roles</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.roles }}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="edit">
+    <mat-header-cell *matHeaderCellDef>Edit Roles</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button mat-mini-fab color="accent" style="margin: 12px;" (click)="editRoles(row)">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="['username', 'roles', 'edit']"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: ['username', 'roles', 'edit']"></mat-row>
+</mat-table>

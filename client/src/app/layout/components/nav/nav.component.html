@@ -19,9 +19,9 @@
         </div>
       </a>
     </ng-container>
-    <ng-container>
+    <ng-container *appHasRole="['Admin', 'Moderator']">
       <a
-        *ngFor="let menu of errorMenuItems"
+        *ngFor="let menu of adminMenuItems"
         class="nav__page-route"
         [routerLink]="menu.routerLink"
         routerLinkActive="nav__page-route--active"
@@ -61,7 +61,7 @@
   <button *ngIf="(accountService.currentUser$ | async) as user" mat-flat-button [matMenuTriggerFor]="navMenu">
     <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
       <img class="nav__user-photo" [src]="user.photoUrl || './assets/images/user.png'" [alt]="user.username" />
-      <span>Welcome, {{ user.knownAs | titlecase }}</span>
+      <span>Welcome, {{ user.knownAs || user.username | titlecase }}</span>
       <mat-icon>arrow_drop_down</mat-icon>
     </div>
   </button>
