@@ -68,7 +68,7 @@ const routes: Routes = [
   }
 ];
 
-export const LayoutRoutingComponent = [
+export const LayoutRoutingComponents = [
   HomeComponent,
   ListsComponent,
   MemberDetailComponent,

@@ -35,7 +35,7 @@ namespace WebAPI.Controllers
 
             using var hmac = new HMACSHA512();
 
-            user.Username = registerDTO.Username.ToLower();
+            user.UserName = registerDTO.Username.ToLower();
             user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDTO.Password));
             user.PasswordSalt = hmac.Key;
 
@@ -44,7 +44,7 @@ namespace WebAPI.Controllers
 
             return new UserDTO
             {
-                Username = user.Username,
+                Username = user.UserName,
                 Token = _tokenService.CreateToken(user),
                 KnownAs = user.KnownAs,
                 Gender = user.Gender
@@ -56,7 +56,7 @@ namespace WebAPI.Controllers
         {
             var user = await _context.Users
                 .Include(x => x.Photos)
-                .SingleOrDefaultAsync(x => x.Username.Equals(loginDTO.Username.ToLower()));
+                .SingleOrDefaultAsync(x => x.UserName.Equals(loginDTO.Username.ToLower()));
 
             if (user == null) return Unauthorized("Username doesn't exist!");
 
@@ -71,7 +71,7 @@ namespace WebAPI.Controllers
 
             return new UserDTO
             {
-                Username = user.Username,
+                Username = user.UserName,
                 Token = _tokenService.CreateToken(user),
                 PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url,
                 KnownAs = user.KnownAs,
@@ -81,7 +81,7 @@ namespace WebAPI.Controllers
 
         private async Task<bool> UserExists(string username)
         {
-            return await _context.Users.AnyAsync(x => x.Username.Equals(username.ToLower()));
+            return await _context.Users.AnyAsync(x => x.UserName.Equals(username.ToLower()));
         }
     }
 }

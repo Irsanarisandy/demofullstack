@@ -23,7 +23,7 @@
       </div>
     </mat-card-content>
     <mat-card-actions fxLayout="row" fxLayoutGap="5px">
-      <button mat-flat-button fxFlex color="accent">Like</button>
+      <button mat-flat-button fxFlex color="accent" (click)="toggleLike(member)">Like</button>
       <button mat-flat-button fxFlex color="primary" (click)="selectTab(3)">Message</button>
     </mat-card-actions>
   </mat-card>

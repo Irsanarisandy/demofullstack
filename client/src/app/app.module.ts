@@ -1,5 +1,6 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
@@ -13,6 +14,7 @@ import { LoadingInterceptor } from './_interceptors/loading.interceptor';
     AppComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     LayoutModule,
     SharedModule
   ],

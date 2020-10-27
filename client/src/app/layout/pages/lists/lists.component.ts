@@ -11,7 +11,7 @@ import { MembersService } from '../../../_services/members.service';
   styleUrls: ['./lists.component.scss']
 })
 export class ListsComponent implements OnInit {
-  public members: Partial<Member[]>;
+  public members: Partial<Member[]> = [];
   public likesParams: LikesParams;
   public pagination: Pagination;
 

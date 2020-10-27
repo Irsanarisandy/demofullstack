@@ -35,7 +35,7 @@ namespace Repository.Implementations
 
         public async Task<AppUser> GetUserByUsernameAsync(string username)
         {
-            return await _context.Users.Include(x => x.Photos).SingleOrDefaultAsync(x => x.Username.Equals(username.ToLower()));
+            return await _context.Users.Include(x => x.Photos).SingleOrDefaultAsync(x => x.UserName.Equals(username.ToLower()));
         }
 
         public async Task<bool> SaveAllAsync()
@@ -53,7 +53,7 @@ namespace Repository.Implementations
             var minDob = DateTime.Today.AddYears(-userParams.MaxAge - 1);
             var maxDob = DateTime.Today.AddYears(-userParams.MinAge);
             var query = _context.Users.AsQueryable()
-                .Where(u => !u.Username.Equals(userParams.CurrentUsername))
+                .Where(u => !u.UserName.Equals(userParams.CurrentUsername))
                 .Where(u => u.Gender.Equals(userParams.Gender))
                 .Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);
             query = userParams.OrderBy switch
@@ -71,7 +71,7 @@ namespace Repository.Implementations
         public async Task<MemberDTO> GetMemberAsync(string username)
         {
             return await _context.Users
-                .Where(x => x.Username.Equals(username.ToLower()))
+                .Where(x => x.UserName.Equals(username.ToLower()))
                 .ProjectTo<MemberDTO>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync();
         }

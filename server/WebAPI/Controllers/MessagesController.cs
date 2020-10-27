@@ -41,8 +41,8 @@ namespace WebAPI.Controllers
             {
                 Sender = sender,
                 Recipient = recipient,
-                SenderUsername = sender.Username,
-                RecipientUsername = recipient.Username,
+                SenderUsername = sender.UserName,
+                RecipientUsername = recipient.UserName,
                 Content = createMessageDTO.Content
             };
 
@@ -79,14 +79,14 @@ namespace WebAPI.Controllers
             var username = User.GetUsername();
             var message = await _messageRepository.GetMessage(id);
 
-            if (!message.Sender.Username.Equals(username) && !message.Recipient.Username.Equals(username))
+            if (!message.Sender.UserName.Equals(username) && !message.Recipient.UserName.Equals(username))
                 return Unauthorized();
 
-            if (message.Sender.Username.Equals(username)) {
+            if (message.Sender.UserName.Equals(username)) {
                 message.SenderDeleted = true;
             }
 
-            if (message.Recipient.Username.Equals(username))
+            if (message.Recipient.UserName.Equals(username))
             {
                 message.RecipientDeleted = true;
             }

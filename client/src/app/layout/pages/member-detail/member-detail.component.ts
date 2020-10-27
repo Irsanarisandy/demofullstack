@@ -1,10 +1,12 @@
 import { AfterContentChecked, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 
 import { Member } from '../../../_domain/member';
 import { Message } from '../../../_domain/message';
+import { MembersService } from '../../../_services/members.service';
 import { MessageService } from '../../../_services/message.service';
 
 @Component({
@@ -19,9 +21,12 @@ export class MemberDetailComponent implements OnInit, AfterContentChecked {
   public galleryOptions: NgxGalleryOptions[];
   public galleryImages: NgxGalleryImage[];
   public messages: Message[] = [];
+  public fromRouteQuery = false;
 
   constructor(
     private route: ActivatedRoute,
+    private snackBar: MatSnackBar,
+    private membersService: MembersService,
     private messageService: MessageService
   ) { }
 
@@ -44,9 +49,16 @@ export class MemberDetailComponent implements OnInit, AfterContentChecked {
 
   ngAfterContentChecked(): void {
     this.route.queryParams.subscribe(params => {
-      if (params.tab && this.memberTabGroup) {
+      if (params.tab && this.memberTabGroup && !this.fromRouteQuery) {
         this.selectTab(params.tab);
+        this.fromRouteQuery = true;  // to prevent looping here, since we can't reset queryParams
       }
+    });
+  }
+
+  toggleLike(member: Member): void {
+    this.membersService.toggleLike(member.username).subscribe((isLiked: boolean) => {
+      this.openSnackBar(`You have ${isLiked ? 'liked' : 'unliked'} ${member.knownAs}`, 'Success');
     });
   }
 
@@ -74,5 +86,11 @@ export class MemberDetailComponent implements OnInit, AfterContentChecked {
 
   selectTab(selectedIndex: number): void {
     this.memberTabGroup.selectedIndex = selectedIndex;
+  }
+
+  openSnackBar(message: string, action: string): void {
+    this.snackBar.open(message, action, {
+      duration: 3500
+    });
   }
 }

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { LayoutRoutingComponent, LayoutRoutingModule } from './layout-routing.module';
+import { LayoutRoutingComponents, LayoutRoutingModule } from './layout-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
 import { LayoutComponent } from './layout.component';
@@ -12,7 +13,7 @@ import { MemberMessagesComponent } from './components/member-messages/member-mes
 
 @NgModule({
   declarations: [
-    ...LayoutRoutingComponent,
+    ...LayoutRoutingComponents,
     LayoutComponent,
     NavComponent,
     FooterComponent,
@@ -21,6 +22,7 @@ import { MemberMessagesComponent } from './components/member-messages/member-mes
     MemberMessagesComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     LayoutRoutingModule,
     SharedModule
   ],

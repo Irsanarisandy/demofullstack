@@ -47,9 +47,9 @@ namespace Repository.Implementations
 
             query = messageParams.Container.ToLower() switch
             {
-                "inbox" => query.Where(u => u.Recipient.Username.Equals(messageParams.Username) && u.RecipientDeleted == false),
-                "outbox" => query.Where(u => u.Sender.Username.Equals(messageParams.Username) && u.SenderDeleted == false),
-                _ => query.Where(u => u.Recipient.Username.Equals(messageParams.Username) && u.RecipientDeleted == false && u.DateRead == null)
+                "inbox" => query.Where(u => u.Recipient.UserName.Equals(messageParams.Username) && u.RecipientDeleted == false),
+                "outbox" => query.Where(u => u.Sender.UserName.Equals(messageParams.Username) && u.SenderDeleted == false),
+                _ => query.Where(u => u.Recipient.UserName.Equals(messageParams.Username) && u.RecipientDeleted == false && u.DateRead == null)
             };
 
             var messages = query.ProjectTo<MessageDTO>(_mapper.ConfigurationProvider);
@@ -63,14 +63,14 @@ namespace Repository.Implementations
                 .Include(u => u.Recipient).ThenInclude(p => p.Photos)
                 .Include(u => u.Sender).ThenInclude(p => p.Photos)
                 .Where(m =>
-                    (m.Recipient.Username.Equals(currentUsername) && m.Sender.Username.Equals(recipientUsername) && m.RecipientDeleted == false)
-                    || (m.Recipient.Username.Equals(recipientUsername) && m.Sender.Username.Equals(currentUsername) && m.SenderDeleted == false)
+                    (m.Recipient.UserName.Equals(currentUsername) && m.Sender.UserName.Equals(recipientUsername) && m.RecipientDeleted == false)
+                    || (m.Recipient.UserName.Equals(recipientUsername) && m.Sender.UserName.Equals(currentUsername) && m.SenderDeleted == false)
                 )
                 .OrderBy(m => m.MessageSent)
                 .ToListAsync();
 
             var unreadMessages = messages
-                .Where(m => m.DateRead == null && m.Recipient.Username.Equals(currentUsername))
+                .Where(m => m.DateRead == null && m.Recipient.UserName.Equals(currentUsername))
                 .ToList();
 
             if (unreadMessages.Any())

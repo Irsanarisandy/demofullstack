@@ -12,7 +12,7 @@
     <div>
       <img
         *ngIf="message.senderUsername === username"
-        [src]="message.senderPhotoUrl"
+        [src]="message.senderPhotoUrl || '/assets/images/user.png'"
         [alt]="message.senderUsername"
         class="member-messages__photo"
       />

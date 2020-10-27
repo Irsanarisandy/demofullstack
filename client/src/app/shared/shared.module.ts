@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
@@ -17,8 +15,6 @@ import { CustomInputComponent } from './components/custom-input/custom-input.com
 const allModules = [
   CommonModule,
   HttpClientModule,
-  BrowserModule,
-  BrowserAnimationsModule,
   FlexLayoutModule,
   FormsModule,
   ReactiveFormsModule,

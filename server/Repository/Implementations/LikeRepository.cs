@@ -33,7 +33,7 @@ namespace Repository.Implementations
 
         public async Task<PagedList<LikeDTO>> GetUserLikesInfo(LikesParams likesParams)
         {
-            var users = _context.Users.OrderBy(u => u.Username).AsQueryable();
+            var users = _context.Users.OrderBy(u => u.UserName).AsQueryable();
             var likes = _context.Likes.AsQueryable();
 
             if (likesParams.Predicate == "liked")
@@ -50,7 +50,7 @@ namespace Repository.Implementations
             var likedUsers = users.Select(user => new LikeDTO
             {
                 Id = user.Id,
-                Username = user.Username,
+                Username = user.UserName,
                 Age = user.DateOfBirth.CalculateAge(),
                 KnownAs = user.KnownAs,
                 City = user.City,

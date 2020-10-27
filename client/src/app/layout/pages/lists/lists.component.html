@@ -24,7 +24,7 @@
 </div>
 
 <mat-paginator
-  *ngIf="pagination"
+  *ngIf="pagination && members.length > 0"
   [hidePageSize]="true"
   [length]="pagination.totalItems"
   [pageIndex]="pagination.currentPage-1"
