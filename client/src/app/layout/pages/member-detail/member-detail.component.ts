@@ -1,13 +1,16 @@
-import { AfterContentChecked, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterContentChecked, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTabGroup } from '@angular/material/tabs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
+import { take } from 'rxjs/operators';
 
 import { Member } from '../../../_domain/member';
-import { Message } from '../../../_domain/message';
+import { User } from '../../../_domain/user';
+import { AccountService } from '../../../_services/account.service';
 import { MembersService } from '../../../_services/members.service';
 import { MessageService } from '../../../_services/message.service';
+import { PresenceService } from '../../../_services/presence.service';
 
 @Component({
   selector: 'app-member-detail',
@@ -15,20 +18,26 @@ import { MessageService } from '../../../_services/message.service';
   styleUrls: ['./member-detail.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class MemberDetailComponent implements OnInit, AfterContentChecked {
+export class MemberDetailComponent implements OnInit, AfterContentChecked, OnDestroy {
   @ViewChild('memberTabGroup') private memberTabGroup: MatTabGroup;
   public member: Member;
   public galleryOptions: NgxGalleryOptions[];
   public galleryImages: NgxGalleryImage[];
-  public messages: Message[] = [];
   public fromRouteQuery = false;
+  private user: User;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private snackBar: MatSnackBar,
+    private accountService: AccountService,
     private membersService: MembersService,
-    private messageService: MessageService
-  ) { }
+    private messageService: MessageService,
+    public presenceService: PresenceService
+  ) {
+    this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
 
   ngOnInit(): void {
     this.route.data.subscribe(data => this.member = data.member);
@@ -56,6 +65,10 @@ export class MemberDetailComponent implements OnInit, AfterContentChecked {
     });
   }
 
+  ngOnDestroy(): void {
+    this.messageService.stopHubConnection();
+  }
+
   toggleLike(member: Member): void {
     this.membersService.toggleLike(member.username).subscribe((isLiked: boolean) => {
       this.openSnackBar(`You have ${isLiked ? 'liked' : 'unliked'} ${member.knownAs}`, 'Success');
@@ -74,13 +87,11 @@ export class MemberDetailComponent implements OnInit, AfterContentChecked {
     return imageUrls;
   }
 
-  loadMessages(): void {
-    this.messageService.getMessageThread(this.member.username).subscribe(messages => this.messages = messages);
-  }
-
   onTabActivated(event: any): void {
-    if (event.index === 3 && this.messages.length === 0) {
-      this.loadMessages();
+    if (event.index === 3) {
+      this.messageService.createHubConnection(this.user, this.member.username);
+    } else {
+      this.messageService.stopHubConnection();
     }
   }
 

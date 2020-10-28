@@ -1,3 +1,8 @@
+Note:
+- the server of this project uses database to store tracking information
+-- the optimal alternative is to use service such as Redis
+- for SignalR to work properly, make sure to turn off installed Antivirus, if any
+
 Creating .Net Core project manually by command line:
 => dotnet new sln
 -- create solution file, important to have for any C# project

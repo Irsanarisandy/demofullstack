@@ -17,7 +17,12 @@
     </button>
   </div>
   <mat-card-title-group>
-    <mat-card-title>{{ member.knownAs }}, {{ member.age }}</mat-card-title>
+    <mat-card-title fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+      <mat-icon [ngClass]="{
+        'member-card__online': (presenceService.onlineUsers$ | async).includes(member.username)
+      }">person</mat-icon>
+      <span>{{ member.knownAs }}, {{ member.age }}</span>
+    </mat-card-title>
     <mat-card-subtitle>{{ member.city }}, {{ member.country }}</mat-card-subtitle>
   </mat-card-title-group>
 </mat-card>

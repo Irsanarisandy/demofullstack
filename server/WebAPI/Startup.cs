@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 
 using WebAPI.Extensions;
 using WebAPI.Middleware;
+using WebAPI.SignalR;
 
 namespace WebAPI
 {
@@ -26,6 +27,7 @@ namespace WebAPI
             services.AddControllers();
             services.AddCors();
             services.AddIdentityServices(_config);
+            services.AddSignalR();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
@@ -47,7 +49,12 @@ namespace WebAPI
 
             app.UseRouting();
 
-            app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+            app.UseCors(policy => policy
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials()
+                .WithOrigins("https://localhost:4200")
+            );
 
             app.UseAuthentication();
 
@@ -56,6 +63,8 @@ namespace WebAPI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<PresenceHub>("hubs/presence");
+                endpoints.MapHub<MessageHub>("hubs/message");
             });
         }
     }

@@ -10,6 +10,7 @@ using Repository.Interfaces;
 using Service.Implementations;
 using Service.Interfaces;
 using WebAPI.Helpers;
+using WebAPI.SignalR;
 
 namespace WebAPI.Extensions
 {
@@ -17,6 +18,7 @@ namespace WebAPI.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
+            services.AddSingleton<PresenceTracker>();
             services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IPhotoService, PhotoService>();

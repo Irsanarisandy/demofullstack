@@ -5,6 +5,15 @@
       <img [src]="member.photoUrl || './assets/images/user.png'" [alt]="member.knownAs">
     </div>
     <mat-card-content fxLayout="column" fxLayoutGap="5px">
+      <div
+        *ngIf="(presenceService.onlineUsers$ | async).includes(member.username)"
+        fxLayout="row"
+        fxLayoutAlign="start center"
+        fxLayoutGap="5px"
+      >
+        <mat-icon style="color: rgb(1, 189, 42);">account_circle</mat-icon>
+        <span>Online Now</span>
+      </div>
       <div fxLayout="column">
         <h3>Location:</h3>
         <p>{{ member.city }}, {{ member.country }}</p>
@@ -48,7 +57,7 @@
       ></ngx-gallery>
     </mat-tab>
     <mat-tab label="Messages">
-      <app-member-messages [messages]="messages" [username]="member.username"></app-member-messages>
+      <app-member-messages [username]="member.username"></app-member-messages>
     </mat-tab>
   </mat-tab-group>
 </div>

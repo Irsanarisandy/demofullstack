@@ -1,9 +1,9 @@
 <div fxLayout="column" fxLayoutAlign="start center" class="member-messages">
-  <div *ngIf="messages.length === 0" fxFlexFill class="member-messages__message-section">
+  <div *ngIf="(messageService.messageThread$ | async)?.length === 0" fxFlexFill class="member-messages__message-section">
     <p>No messages yet...say hi by using the message box below</p>
   </div>
   <div
-    *ngFor="let message of messages"
+    *ngFor="let message of (messageService.messageThread$ | async)"
     fxLayout="row"
     fxLayoutGap="10px"
     fxFlexFill

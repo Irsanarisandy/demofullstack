@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Member } from '../../../_domain/member';
 import { MembersService } from '../../../_services/members.service';
+import { PresenceService } from '../../../_services/presence.service';
 
 @Component({
   selector: 'app-member-card',
@@ -15,7 +16,8 @@ export class MemberCardComponent {
 
   constructor(
     private snackBar: MatSnackBar,
-    private membersService: MembersService
+    private membersService: MembersService,
+    public presenceService: PresenceService
   ) { }
 
   toggleLike(member: Member): void {

@@ -23,6 +23,36 @@ namespace Repository.Implementations
             _context = context;
         }
 
+        public void AddMessageGroup(Group group)
+        {
+            _context.Groups.Add(group);
+        }
+
+        public async Task<Group> GetMessageGroup(string groupName)
+        {
+            return await _context.Groups
+                .Include(c => c.Connections)
+                .FirstOrDefaultAsync(g => g.Name.Equals(groupName));
+        }
+
+        public async Task<Group> GetGroupForConnection(string connectionId)
+        {
+            return await _context.Groups
+                .Include(c => c.Connections)
+                .Where(c => c.Connections.Any(x => x.ConnectionId.Equals(connectionId)))
+                .FirstOrDefaultAsync();
+        }
+
+        public void RemoveConnection(Connection connection)
+        {
+            _context.Connections.Remove(connection);
+        }
+
+        public async Task<Connection> GetConnection(string connectionId)
+        {
+            return await _context.Connections.FindAsync(connectionId);
+        }
+
         public void AddMessage(Message message)
         {
             _context.Messages.Add(message);
@@ -77,7 +107,7 @@ namespace Repository.Implementations
             {
                 foreach (var message in unreadMessages)
                 {
-                    message.DateRead = DateTime.Now;
+                    message.DateRead = DateTime.UtcNow;
                 }
 
                 await _context.SaveChangesAsync();
