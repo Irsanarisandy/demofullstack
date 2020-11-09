@@ -38,11 +38,6 @@ namespace Repository.Implementations
             return await _context.Users.Include(x => x.Photos).SingleOrDefaultAsync(x => x.UserName.Equals(username.ToLower()));
         }
 
-        public async Task<bool> SaveAllAsync()
-        {
-            return await _context.SaveChangesAsync() > 0;
-        }
-
         public void Update(AppUser user)
         {
             _context.Entry(user).State = EntityState.Modified;
@@ -74,6 +69,14 @@ namespace Repository.Implementations
                 .Where(x => x.UserName.Equals(username.ToLower()))
                 .ProjectTo<MemberDTO>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync();
+        }
+
+        public async Task<string> GetUserGender(string username)
+        {
+            return await _context.Users
+                .Where(x => x.UserName.Equals(username))
+                .Select(x => x.Gender)
+                .FirstOrDefaultAsync();
         }
     }
 }

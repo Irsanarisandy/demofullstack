@@ -1,0 +1,12 @@
+<div fxLayout="column" fxLayoutGap="15px" class="confirm-dialog">
+  <h1 mat-dialog-title [style.margin.px]="0">{{ title }}</h1>
+  <mat-dialog-content>{{ message }}</mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-flat-button (click)="dialogRef.close(true)">
+      {{ btnOkText }}
+    </button>
+    <button mat-flat-button (click)="dialogRef.close(false)">
+      {{ btnCancelText }}
+    </button>
+  </mat-dialog-actions>
+</div>

@@ -11,6 +11,7 @@ import { MessageParams } from '../_domain/message-params';
 import { PaginatedResult } from '../_domain/pagination';
 import { User } from '../_domain/user';
 import { AccountService } from './account.service';
+import { BusyService } from './busy.service';
 import { getPaginatedResult, getPaginationHeaders } from './paginationHelper';
 
 @Injectable({
@@ -26,7 +27,8 @@ export class MessageService {
 
   constructor(
     private http: HttpClient,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private busyService: BusyService
   ) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
       this.messageParams = new MessageParams();
@@ -34,6 +36,7 @@ export class MessageService {
   }
 
   createHubConnection(user: User, otherUsername: string): void {
+    this.busyService.busy();
     this.hubConnection = new HubConnectionBuilder()
       .withUrl(`${this.hubURL}/message?user=${otherUsername}`, {
         accessTokenFactory: () => user.token
@@ -41,7 +44,7 @@ export class MessageService {
       .withAutomaticReconnect()
       .build();
 
-    this.hubConnection.start().catch(error => console.log(error));
+    this.hubConnection.start().catch(error => console.log(error)).finally(() => this.busyService.idle());
 
     this.hubConnection.on('ReceiveMessageThread', (messages: Message[]) => this.messageThreadSource.next(messages));
     this.hubConnection.on('NewMessage', (message: Message) => {
@@ -63,6 +66,7 @@ export class MessageService {
 
   stopHubConnection(): void {
     if (this.hubConnection) {
+      this.messageThreadSource.next([]);
       this.hubConnection.stop().catch(error => console.log(error));
     }
   }

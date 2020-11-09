@@ -13,6 +13,7 @@ import { HasRoleDirective } from '../_directives/has-role.directive';
 import { PhotoEditorComponent } from './components/photo-editor/photo-editor.component';
 import { CustomInputComponent } from './components/custom-input/custom-input.component';
 import { RolesDialogComponent } from './components/roles-dialog/roles-dialog.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 const allModules = [
   CommonModule,
@@ -30,7 +31,8 @@ const allComponentsAndDirectives = [
   HasRoleDirective,
   PhotoEditorComponent,
   CustomInputComponent,
-  RolesDialogComponent
+  RolesDialogComponent,
+  ConfirmDialogComponent
 ];
 
 @NgModule({

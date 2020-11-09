@@ -7,6 +7,7 @@ import { Message } from '../../../_domain/message';
 import { MessageParams } from '../../../_domain/message-params';
 import { Pagination } from '../../../_domain/pagination';
 import { MessageService } from '../../../_services/message.service';
+import { ConfirmService } from '../../../_services/confirm.service';
 
 @Component({
   selector: 'app-messages',
@@ -22,7 +23,10 @@ export class MessagesComponent implements OnInit {
   public messageParams: MessageParams;
   public loading = false;
 
-  constructor(private messageService: MessageService) {
+  constructor(
+    private messageService: MessageService,
+    private confirmService: ConfirmService
+  ) {
     this.messageParams = this.messageService.getMessageParams();
   }
 
@@ -43,12 +47,18 @@ export class MessagesComponent implements OnInit {
   }
 
   deleteMessage(id: number): void {
-    this.messageService.deleteMessage(id).subscribe(() => {
-      this.messages.splice(this.messages.findIndex(m => m.id === id, 1));
-      this.dataSource = new MatTableDataSource(this.messages);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-    });
+    this.confirmService
+      .confirm('Confirm Delete Message', 'This cannot be undone.\nAre you sure you want to delete this message?')
+      .subscribe(result => {
+        if (result) {
+          this.messageService.deleteMessage(id).subscribe(() => {
+            this.messages.splice(this.messages.findIndex(m => m.id === id, 1));
+            this.dataSource = new MatTableDataSource(this.messages);
+            this.dataSource.sort = this.sort;
+            this.dataSource.paginator = this.paginator;
+          });
+        }
+      });
   }
 
   pageChanged(event: any): void {

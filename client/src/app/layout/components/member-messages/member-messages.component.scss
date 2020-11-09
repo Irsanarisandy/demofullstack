@@ -3,8 +3,10 @@
     margin: 0;
   }
 
-  &__message-section {
-    padding: 10px 0;
+  &__message-container {
+    overflow: auto;
+    margin: 10px 0;
+    max-height: 500px;
   }
 
   &__photo {

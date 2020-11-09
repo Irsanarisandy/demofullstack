@@ -1,41 +1,47 @@
 <div fxLayout="column" fxLayoutAlign="start center" class="member-messages">
-  <div *ngIf="(messageService.messageThread$ | async)?.length === 0" fxFlexFill class="member-messages__message-section">
+  <div *ngIf="(messageService.messageThread$ | async)?.length === 0" fxFlexFill class="member-messages__message-container">
     <p>No messages yet...say hi by using the message box below</p>
   </div>
   <div
-    *ngFor="let message of (messageService.messageThread$ | async)"
-    fxLayout="row"
-    fxLayoutGap="10px"
+    *ngIf="(messageService.messageThread$ | async)?.length > 0"
     fxFlexFill
-    class="member-messages__message-section"
+    fxLayout="column"
+    fxLayoutGap="20px"
+    class="member-messages__message-container"
   >
-    <div>
-      <img
-        *ngIf="message.senderUsername === username"
-        [src]="message.senderPhotoUrl || '/assets/images/user.png'"
-        [alt]="message.senderUsername"
-        class="member-messages__photo"
-      />
-    </div>
-    <div *ngIf="message.senderUsername !== username" fxFlex></div>
-    <div fxLayout="column" fxLayoutGap="5px">
-      <div class="member-messages__content">
-        <p>{{ message.content }}</p>
+    <div
+      *ngFor="let message of (messageService.messageThread$ | async)"
+      fxLayout="row"
+      fxLayoutGap="10px"
+    >
+      <div>
+        <img
+          *ngIf="message.senderUsername === username"
+          [src]="message.senderPhotoUrl || '/assets/images/user.png'"
+          [alt]="message.senderUsername"
+          class="member-messages__photo"
+        />
       </div>
-      <div
-        fxLayout="row"
-        [fxLayoutAlign]="message.senderUsername === username ? 'start center' : 'end center'"
-        fxLayoutGap="5px"
-        class="member-messages__status"
-      >
-        <mat-icon>schedule</mat-icon>
-        <span>{{ message.messageSent | timeago }}</span>
-        <span *ngIf="!message.dateRead && message.senderUsername !== username">
-          (unread)
-        </span>
-        <span *ngIf="message.dateRead && message.senderUsername !== username">
-          (read {{ message.dateRead | timeago }})
-        </span>
+      <div *ngIf="message.senderUsername !== username" fxFlex></div>
+      <div fxLayout="column" fxLayoutGap="5px">
+        <div class="member-messages__content">
+          <p>{{ message.content }}</p>
+        </div>
+        <div
+          fxLayout="row"
+          [fxLayoutAlign]="message.senderUsername === username ? 'start center' : 'end center'"
+          fxLayoutGap="5px"
+          class="member-messages__status"
+        >
+          <mat-icon>schedule</mat-icon>
+          <span>{{ message.messageSent | timeago }}</span>
+          <span *ngIf="!message.dateRead && message.senderUsername !== username">
+            (unread)
+          </span>
+          <span *ngIf="message.dateRead && message.senderUsername !== username">
+            (read {{ message.dateRead | timeago }})
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -58,8 +64,9 @@
         required
       />
     </mat-form-field>
-    <button mat-fab [disabled]="!messageForm.valid" type="submit" color="primary">
-      <mat-icon>send</mat-icon>
+    <button mat-fab [disabled]="!messageForm.valid || loading" type="submit" color="primary">
+      <mat-icon *ngIf="!loading">send</mat-icon>
+      <i *ngIf="loading" class="fa fa-spinner fa-spin"></i>
     </button>
   </form>
 </div>
