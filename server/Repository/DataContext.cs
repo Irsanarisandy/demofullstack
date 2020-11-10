@@ -21,6 +21,7 @@ namespace Repository
         public DbSet<Message> Messages { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Connection> Connections { get; set; }
+        public DbSet<Photo> Photos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -67,6 +68,8 @@ namespace Repository
                 .HasOne(u => u.Sender)
                 .WithMany(m => m.MessagesSent)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Photo>().HasQueryFilter(p => p.IsApproved);
 
             builder.ApplyUtcDateTimeConverter();
         }

@@ -46,7 +46,8 @@ namespace WebAPI.Controllers
         [HttpGet("{username}", Name = "GetUser")]
         public async Task<ActionResult<MemberDTO>> GetUser(string username)
         {
-            return await _unitOfWork.UserRepository.GetMemberAsync(username);
+            var currentUsername = User.GetUsername();
+            return await _unitOfWork.UserRepository.GetMemberAsync(username, currentUsername.Equals(username));
         }
 
         [HttpPut]
@@ -75,10 +76,6 @@ namespace WebAPI.Controllers
                 Url = result.SecureUrl.AbsoluteUri,
                 PublicId = result.PublicId
             };
-            if (user.Photos.Count == 0)
-            {
-                photo.IsMain = true;
-            }
             user.Photos.Add(photo);
 
             if (await _unitOfWork.Complete())

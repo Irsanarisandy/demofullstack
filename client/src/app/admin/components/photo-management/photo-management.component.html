@@ -1,1 +1,19 @@
-<p>photo-management works!</p>
+<div fxLayout="row wrap" fxLayoutGap="16px" class="photo-management">
+  <div
+    *ngFor="let photo of photosForApproval; index as i"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="10px"
+  >
+    <h2>{{ photo.username | titlecase }}</h2>
+    <img [src]="photo.url" [alt]="i + '-' + photo.username">
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+      <button mat-icon-button matTooltip="Approve Photo" (click)="approvePhoto(photo.id)">
+        <mat-icon>check</mat-icon>
+      </button>
+      <button mat-icon-button matTooltip="Reject Photo" (click)="rejectPhoto(photo.id)">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

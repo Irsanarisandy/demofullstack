@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -31,6 +32,7 @@ namespace Domain.Entities
             foreach (var user in users)
             {
                 user.UserName = user.UserName.ToLower();
+                user.Photos.First().IsApproved = true;
                 await userManager.CreateAsync(user, "Pa$$w0rd");
                 await userManager.AddToRoleAsync(user, "Member");
             }

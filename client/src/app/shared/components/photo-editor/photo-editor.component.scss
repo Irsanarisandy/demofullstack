@@ -22,7 +22,27 @@
     }
   }
 
+  &__uploaded-container {
+    position: relative;
+
+    span {
+      color: red;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translate(18px, -50%);
+    }
+  }
+
   &__uploaded-img {
-    max-width: 128px;
+    border: 2px solid lightgray;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    max-width: 150px;
+
+    &--blur {
+      opacity: 0.2;
+    }
   }
 }

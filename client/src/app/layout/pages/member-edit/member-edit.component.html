@@ -1,9 +1,7 @@
 <div *ngIf="member" fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="20px">
-  <mat-card class="member-edit">
+  <mat-card fxLayout="column" class="member-edit">
     <mat-card-title>{{ member.knownAs }}</mat-card-title>
-    <div class="member-edit__img-wrapper">
-      <img [src]="member.photoUrl || './assets/images/user.png'" [alt]="member.knownAs">
-    </div>
+    <img [src]="member.photoUrl || './assets/images/user.png'" [alt]="member.knownAs">
     <mat-card-content fxLayout="column" fxLayoutGap="5px">
       <div fxLayout="column">
         <h3>Location:</h3>
@@ -34,7 +32,7 @@
     </mat-card-actions>
   </mat-card>
 
-  <mat-tab-group fxFlex>
+  <mat-tab-group fxFlex class="member-edit-tab">
     <mat-tab label="About {{ member.knownAs }}">
       <form
         #editAboutForm="ngForm"
