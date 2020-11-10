@@ -20,7 +20,7 @@ Run server:
 => dotnet watch run
 
 Accessing database from .Net Core project:
-- using NuGet, install Microsoft.EntityFrameworkCore (can be specific to database, e.g. sqlite)
+- using NuGet, install Microsoft.EntityFrameworkCore.Sqlite (or another package depending on which database is used)
 - using terminal, install Entity Framework Core Tools
 -- go to NuGet website and search for dotnet-ef to copy and paste the command
 -- make sure that the version is related to the installed .Net Core SDK being used
@@ -83,3 +83,12 @@ Angular folder structure:
 
 Angular Auth Guard:
 - used for preventing unauthorized users from going to specific pages that requires login credentials
+
+Docker (using Postgres image):
+=> docker run --name dating-app -e POSTGRES_USER=appuser -e POSTGRES_PASSWORD=Pa$$w0rd -p 5432:5432 -d postgres:latest
+- download Docker Desktop
+- when adjusting appsettings.Development.json file, make sure to use port 5432 for postgres and check if password is the same as in Docker Desktop (in this case it is not the same)
+
+Heroku:
+- download Heroku Cli
+- after creating new app, make sure to enter all the config variables, especially the ones set in appsettings.json file, as this will take priority when deploying
